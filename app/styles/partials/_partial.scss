@@ -1,0 +1,141 @@
+.rvc__comment {
+
+  position: absolute;
+  left: 0;
+  width: 25%;
+  float: left;
+  transition: 400ms left, 400ms padding;
+  padding: 0 5px;
+
+  // cursor: -webkit-zoom-in; cursor: -moz-zoom-in;
+
+  &__box {
+    border: 2px solid;
+    border-radius: 3px;
+    background-color: white;
+    padding: 10px;
+    .selected & {
+      border-color: $blue !important;
+    }
+  }
+
+  // Left position
+  @for $i from 1 through 3 {
+    &[data-position="#{$i}"] {
+      // left: calc( (((100% - 30px)/4) * #{$j}) + (10px * #{$j}) );
+      left: calc(25% * #{$i});
+    }
+  }
+
+  // Enter
+  &.rvc__comment-enter {
+    opacity: 0.01;
+    transform: translateX( 100% );
+    &.rvc__comment-enter-active {
+      opacity: 1;
+      transform: translateX(0);
+      transition: 300ms transform ease, 300ms opacity ease;
+    }
+  }
+
+  // Leave
+  &.rvc__comment-leave {
+    opacity: 1;
+    transform: translateX(0);
+    &.rvc__comment-leave-active {
+      opacity: 0.01;
+      transform: translateX( -100% );
+      transition: 300ms transform ease, 300ms opacity ease;
+    }
+  }
+
+  header {
+
+    @extend .clearfix;
+    width: 100%;
+
+    .rvc__comment__infos {
+      float: left;
+      &__username {
+        font-weight: 700;
+        font-size: 14px;
+        color: $black;
+      }
+      &__time {
+        font-size: 13px;
+        color: percent-color(70%);
+      }
+    }
+
+    .rvc__comment__votes {
+      float: right;
+      font-size: 12px;
+      margin-top: 6px;
+      a {
+        display: inline-block;
+        text-align: center;
+        color: percent-color(70%);
+        text-decoration: none;
+        transition: 300ms all;
+
+        & + a { margin-left: 5px; }
+
+        &:before {
+          content:'';
+          display: block;
+          margin: 0 auto 2px auto;
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 5px 6px 5px;
+          border-color: transparent transparent percent-color(70%) transparent;
+          transition: 300ms all;
+        }
+
+      }
+
+      &__up {
+        &.active, &:hover {
+          color: $green;
+          &:before {
+            border-color: transparent transparent $green transparent;
+          }
+        }
+      }
+
+      &__down {
+        &:before {
+          transform: rotate(180deg);
+        }
+        &.active, &:hover {
+          color: $red;
+          &:before {
+            border-color: transparent transparent $red transparent;
+          }
+        }
+      }
+
+
+    }
+
+  }
+
+  &__message {
+    font-size: 14px;
+    margin-top: 10px;
+    // color: percent-color(40%);
+    color: $black;
+    &__at {
+      font-size: 15px;
+      font-weight: 400;
+      margin-right: 5px;
+      color: white;
+      display: inline-block;
+      background-color: $blue;
+      text-align: center;
+      padding: 3px 7px;
+      border-radius: 3px;
+    }
+  }
+
+}
